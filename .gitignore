@@ -22,3 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Exclude all file from maven-demo-create exept the 01-Mvn-App-Run.sh file
+maven-demo-create/pom.xml
+maven-demo-create/.mvn/
+maven-demo-create/src/
+maven-demo-create/target/
+
+# 🛠️ Configuration
+.env
+
+# ☕️ Java configuration 
+target/
