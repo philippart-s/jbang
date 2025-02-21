@@ -15,5 +15,6 @@
 # ? JBang templates ?
 # ? Install app ?
 # ? Alias ?
+# IDE support 
 
   

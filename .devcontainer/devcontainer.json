@@ -30,7 +30,10 @@
 						"path": "/usr/lib/jvm/msopenjdk-current/"
 					}
 				]
-			}
+			},
+			"extensions": [
+				//"jbangdev.jbang-vscode"
+			]
 		}
 	}
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
