@@ -12,7 +12,7 @@ import dev.langchain4j.service.TokenStream;
 
 public class Jarvis {
 
-        private static final Logger _LOG = LoggerFactory.getLogger(Jarvis.class);
+    private static final Logger _LOG = LoggerFactory.getLogger(Jarvis.class);
 
         // 02-ai-services-mode
         interface Assistant {
