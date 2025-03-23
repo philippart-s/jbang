@@ -1,5 +1,4 @@
-//10-add-shebang-app
-///usr/bin/env jbang "$0" "$@" ; exit $? 
+//09-add-shebang-app
  
 /**
  * Hello world!

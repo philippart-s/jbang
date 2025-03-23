@@ -1,0 +1,74 @@
+snippet 02-ai-services-mode:
+  prefix: "02-ai-services-mode"
+  name: "02-ai-services-mode"
+  scope: "java"
+  body: |
+    interface Assistant {
+            @SystemMessage("Tu es JARVIS, un assistant virtuel expert dans le développement Java.")
+            TokenStream chat(String message);
+    }
+
+snippet 03-mistral-model:
+  prefix: "03-mistral-model"
+  name: "03-mistral-model"
+  scope: "java"
+  body: |
+    MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
+                    .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
+                    .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
+                    .baseUrl(
+                            System.getenv("OVH_AI_ENDPOINTS_MODEL_URL"))
+                    .maxTokens(512)
+      .build();
+
+snippet 04-add-memory:
+  prefix: "04-add-memory"
+  name: "04-add-memory"
+  scope: "java"
+  body: |
+    ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
+
+snippet 05-create-assistant:
+  prefix: "05-create-assistant"
+  name: "05-create-assistant"
+  scope: "java"
+  body: |
+    Assistant assistant = AiServices.builder(Assistant.class)
+                    .streamingChatLanguageModel(streamingChatModel)
+                    .chatMemory(chatMemory)
+    .build();
+
+snippet 06-prompt:
+  prefix: "06-prompt"
+  name: "06-prompt"
+  scope: "java"
+  body: |
+    _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
+    TokenStream tokenStream = assistant
+                    .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
+    _LOG.info("🤖: ");
+    tokenStream
+            .onPartialResponse(_LOG::info)
+            .onError(Throwable::printStackTrace).start();
+
+snippet 09-add-shebang-app:
+  prefix: "09-add-shebang-app"
+  name: "09-add-shebang-app"
+  scope: "java"
+  body: |
+    ///usr/bin/env jbang "\$0" "\$@" ; exit \$? 
+
+snippet 11-add-jarvis-deps:
+  prefix: "11-add-jarvis-deps"
+  name: "11-add-jarvis-deps"
+  scope: "java"
+  body: |
+    //DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
+
+snippet 12-add-external-resources:
+  prefix: "12-add-external-resources"
+  name: "12-add-external-resources"
+  scope: "java"
+  body: |
+    //FILES resources/logback.xml
+

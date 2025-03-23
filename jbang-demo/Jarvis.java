@@ -1,8 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
 // 11-add-jarvis-deps
-//DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
+
 // 12-add-external-resources
-//FILES resources/logback.xml
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
