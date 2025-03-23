@@ -31,6 +31,8 @@ maven-demo-create/target/
 
 # 🛠️ Configuration
 .env
+snippets
+.DS_STORE
 
 # ☕️ Java configuration 
 target/

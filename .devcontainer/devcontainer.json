@@ -32,7 +32,7 @@
 				]
 			},
 			"extensions": [
-				//"jbangdev.jbang-vscode"
+				"jbangdev.jbang-vscode"
 			]
 		}
 	}

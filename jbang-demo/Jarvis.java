@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
-
+// 11-add-jarvis-deps
 //DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
-
+// 12-add-external-resources
 //FILES resources/logback.xml
 
 import org.slf4j.Logger;
@@ -18,32 +18,32 @@ public class Jarvis {
 
         private static final Logger _LOG = LoggerFactory.getLogger(Jarvis.class);
 
-        // java-02-mem-interface
+        // 02-ai-services-mode
         interface Assistant {
                 @SystemMessage("Tu es JARVIS, un assistant virtuel expert dans le développement Java.")
                 TokenStream chat(String message);
         }
 
         public static void main(String[] args) {
-                // java-03-mem-model
+                // 03-mistral-model
                 MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
                                 .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
-                                .modelName("Mistral-7B-Instruct-v0.2")
+                                .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
                                 .baseUrl(
-                                                "https://mistral-7b-instruct-v02.endpoints.kepler.ai.cloud.ovh.net/api/openai_compat/v1")
+                                        System.getenv("OVH_AI_ENDPOINTS_MODEL_URL"))
                                 .maxTokens(512)
                                 .build();
 
-                // java-04-mem-memory
+                // 04-add-memory
                 ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
 
-                // java-05-mem-assistant
+                // 05-create-assistant
                 Assistant assistant = AiServices.builder(Assistant.class)
                                 .streamingChatLanguageModel(streamingChatModel)
                                 .chatMemory(chatMemory)
                                 .build();
 
-                // java-06-mem-prompt
+                // 06-prompt
                 _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
                 TokenStream tokenStream = assistant
                                 .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");

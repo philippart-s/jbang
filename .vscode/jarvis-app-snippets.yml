@@ -1,0 +1,336 @@
+snippet 1.05-app-langchain4j-cfg:
+  prefix: "1.05-app-langchain4j-cfg"
+  name: "1.05-app-langchain4j-cfg"
+  body: |
+    # Langchain4j Mistral configuration
+    quarkus.langchain4j.mistralai.base-url=\${OVH_AI_ENDPOINTS_MODEL_URL}
+    quarkus.langchain4j.mistralai.api-key=\${OVH_AI_ENDPOINTS_ACCESS_TOKEN}
+    quarkus.langchain4j.mistralai.chat-model.max-tokens=32000
+    quarkus.langchain4j.mistralai.chat-model.model-name=\${OVH_AI_ENDPOINTS_MODEL_NAME}
+    quarkus.langchain4j.mistralai.log-requests=false
+    quarkus.langchain4j.mistralai.log-responses=false
+    quarkus.langchain4j.mistralai.chat-model.temperature=0.0
+    quarkus.langchain4j.mistralai.embedding-model.enabled=false
+
+snippet 1.06-app-ai-service:
+  prefix: "1.06-app-ai-service"
+  scope: "java"
+  name: "1.06-app-ai-service"
+  body: |
+    @RegisterAiService
+    @ApplicationScoped
+
+snippet 1.07-app-ai-prompts:
+  prefix: "1.07-app-ai-prompts"
+  scope: "java"
+  name: "1.07-app-ai-prompts"
+  body: |
+    @SystemMessage("""
+      Tu es un spécialiste de la conférence Devoxx France 2025.
+      Cette conférence propose des talks (le terme conférence est bon aussi) avec des oratrices et orateurs (le terme speaker est aussi valide).
+      Lorsque tu as des questions sur les titres, essai de trouver le titre de la conférence qui s'en rapproche le plus.
+      Lorsque tu as des questions sur les personnes donnant la conférence essaie de trouver le nom et prénom qui se suivent dans la catégorie speaker des données que tu possèdes.
+      """)
+    @UserMessage("Voci la question qui t'es posée : {question}")
+    Multi<String> askAQuestion(String question);
+
+snippet 1.08-app-chatbot-rest-path:
+  prefix: "1.08-app-chatbot-rest-path"
+  scope: "java"
+  name: "1.08-app-chatbot-rest-path"
+  body: |
+    @Path("chatbot-api")
+
+snippet 1.09-app-chatbot-rest-client:
+  prefix: "1.09-app-chatbot-rest-client"
+  scope: "java"
+  name: "1.09-app-chatbot-rest-client"
+  body: |
+    @Inject
+    ChatbotService chatbotService;
+
+snippet 1.10-app-chatbot-rest-ask-annot:
+  prefix: "1.10-app-chatbot-rest-ask-annot"
+  scope: "java"
+  name: "1.10-app-chatbot-rest-ask-annot"
+  body: |
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+
+snippet 1.11-app-chatbot-rest-call-model:
+  prefix: "1.11-app-chatbot-rest-call-model"
+  scope: "java"
+  name: "1.11-app-chatbot-rest-call-model"
+  body: |
+    return chatbotService.askAQuestion(question);
+
+snippet 1.14-app-rest-client-cfg:
+  prefix: "1.14-app-rest-client-cfg"
+  name: "1.14-app-rest-client-cfg"
+  body: |
+    quarkus.rest-client."fr.wilda.fullstack.services.DevoxxCFPService".url=\${DEVOXX_CFP_API_URL}
+
+snippet 1.15-app-add-devoxx-svc-annot:
+  prefix: "1.15-app-add-devoxx-svc-annot"
+  scope: "java"
+  name: "1.15-app-add-devoxx-svc-annot"
+  body: |
+    @RegisterRestClient
+    @ClientHeaderParam(name = "Content-Type", value = "application/json")
+
+snippet 1.16-app-add-devoxx-getConf:
+  prefix: "1.16-app-add-devoxx-getConf"
+  scope: "java"
+  name: "1.16-app-add-devoxx-getConf"
+  body: |
+    @GET
+    @Path("talks")
+    public List<Conference> getConferences();
+
+snippet 1.17-app-devoxx-resource-path:
+  prefix: "1.17-app-devoxx-resource-path"
+  scope: "java"
+  name: "1.17-app-devoxx-resource-path"
+  body: |
+    @Path("/devoxx-talks")
+
+snippet 1.18-app-devoxx-resource-rest-client:
+  prefix: "1.18-app-devoxx-resource-rest-client"
+  scope: "java"
+  name: "1.18-app-devoxx-resource-rest-client"
+  body: |
+    @RestClient
+    DevoxxCFPService devoxxCFP;
+
+snippet 1.19-app-devoxx-resource-get-conferences-annot:
+  prefix: "1.19-app-devoxx-resource-get-conferences-annot"
+  scope: "java"
+  name: "1.19-app-devoxx-resource-get-conferences-annot"
+  body: |
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+
+snippet 1.20-app-devoxx-resource-get-conf-body:
+  prefix: "1.20-app-devoxx-resource-get-conf-body"
+  scope: "java"
+  name: "1.20-app-devoxx-resource-get-conf-body"
+  body: |
+    List<Conference> devoxxConferences = devoxxCFP.getConferences();
+
+    _LOG.info("Nombre de conférences à Devoxx : {}", devoxxConferences.size());
+
+    return devoxxConferences;
+
+snippet 1.21-app-ovhai-dependency:
+  prefix: "1.21-app-ovhai-dependency"
+  scope: "xml"
+  name: "1.21-app-ovhai-dependency"
+  body: |
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-ovh-ai</artifactId>
+      <version>1.0.0-beta1</version>
+    </dependency>
+
+snippet 1.23-app-rag-cfg:
+  prefix: "1.23-app-rag-cfg"
+  name: "1.23-app-rag-cfg"
+  body: |
+    # RAG parameters
+    quarkus.datasource.ai-enbeddings.db-kind=postgresql 
+    quarkus.datasource.ai-enbeddings.devservices.image-name=pgvector/pgvector:pg16
+
+    quarkus.langchain4j.pgvector.drop-table-first=true
+    quarkus.langchain4j.pgvector.register-vector-pg-extension=true
+    quarkus.langchain4j.pgvector.dimension=${OVH_EMBEDDING_DIMENSION}
+    quarkus.langchain4j.pgvector.datasource=ai-enbeddings
+
+    quarkus.langchain4j.easy-rag.min-score=0.1
+    quarkus.langchain4j.easy-rag.max-results=20
+    quarkus.langchain4j.easy-rag.path=foo
+    quarkus.langchain4j.easy-rag.ingestion-strategy=OFF
+
+    quarkus.langchain4j.embedding-model.provider=dev.langchain4j.model.ovhai.OvhAiEmbeddingModel
+
+snippet 1.24-app-embedding-model-annot:
+  prefix: "1.24-app-embedding-model-annot"
+  scope: "java"
+  name: "1.24-app-embedding-model-annot"
+  body: |
+    @ApplicationScoped
+
+snippet 1.25-app-embedding-model-producer:
+  prefix: "1.25-app-embedding-model-producer"
+  scope: "java"
+  name: "1.25-app-embedding-model-producer"
+  body: |
+    @Produces
+
+snippet 1.26-app-enbedding-model-ovh-model:
+  prefix: "1.26-app-enbedding-model-ovh-model"
+  scope: "java"
+  name: "1.26-app-enbedding-model-ovh-model"
+  body: |
+    return OvhAiEmbeddingModel.builder()
+        .baseUrl(System.getenv("OVH_AI_EMBEDDING_MODEL_URL"))
+        .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
+        .logRequests(false)
+        .logResponses(false)
+        .build();
+
+snippet 1.27-app-data-embedding-svc-inject:
+  prefix: "1.27-app-data-embedding-svc-inject"
+  scope: "java"
+  name: "1.27-app-data-embedding-svc-inject"
+  body: |
+    @Inject
+    EmbeddingModel embeddingModel;
+
+    @Inject
+    EmbeddingStore<TextSegment> embeddingStore;
+
+snippet 1.28-app-data-devoxx-svc-inject:
+  prefix: "1.28-app-data-devoxx-svc-inject"
+  scope: "java"
+  name: "1.28-app-data-devoxx-svc-inject"
+  body: |
+    @RestClient
+    DevoxxCFPService devoxxCFP;
+
+snippet 1.29-app-data-devoxx-svc-ingest:
+  prefix: "1.29-app-data-devoxx-svc-ingest"
+  scope: "java"
+  name: "1.29-app-data-devoxx-svc-ingest"
+  body: |
+    List<Conference> talks = devoxxCFP.getConferences();
+
+    for (Conference conference : talks) {
+      _LOG.info("Talk ingéré : {}", conference.getTitle());
+      embeddingStore.add(embeddingModel
+          .embed(conference.getSpeakers().toString())
+          .content(),
+          TextSegment.from(conference.toString()));
+    }
+
+snippet 1.30-app-data-devoxx-svc-deleteall:
+  prefix: "1.30-app-data-devoxx-svc-deleteall"
+  scope: "java"
+  name: "1.30-app-data-devoxx-svc-deleteall"
+  body: |
+    embeddingStore.removeAll();
+
+snippet 1.31-app-devoxx-resource-rest-embedding:
+  prefix: "1.31-app-devoxx-resource-rest-embedding"
+  scope: "java"
+  name: "1.31-app-devoxx-resource-rest-embedding"
+  body: |
+    @Inject
+    DevoxxDataEmbeddingService devoxxDataEmbedding;
+
+snippet 1.32-app-devoxx-resource-rest-synchro:
+  prefix: "1.32-app-devoxx-resource-rest-synchro"
+  scope: "java"
+  name: "1.32-app-devoxx-resource-rest-synchro"
+  body: |
+    @GET
+    @Path("/synchro")
+    public void synchro() {
+      devoxxDataEmbedding.ingest();
+    }
+
+    @GET
+    @Path("/delete")
+    public void deleteAll() {
+      devoxxDataEmbedding.deleteAll();
+
+    }
+
+snippet 1.35-app-db-prod-config:
+  prefix: "1.35-app-db-prod-config"
+  name: "1.35-app-db-prod-config"
+  body: |
+    %prod.quarkus.datasource.ai-enbeddings.username=${OVH_DB_USERNAME}
+    %prod.quarkus.datasource.ai-enbeddings.password=${OVH_DB_PASSWORD}
+    %prod.quarkus.datasource.ai-enbeddings.jdbc.url=jdbc:postgresql://${OVH_DB_HOST}:${OVH_DB_PORT}/jarvis-ai-embeddings
+
+snippet 1.37-app-devoxx-confs-html:
+  prefix: "1.37-app-devoxx-confs-html"
+  name: "1.37-app-devoxx-confs-html"
+  scope: "html"
+  body: |
+    <a href="/devoxx-talks/template">🎙️ Get talks 🎙️</a>
+    </br>
+    </br>
+
+    {#if conferences != null && conferences.size > 0 }
+    {#for conf in conferences}
+      <ul>
+        <li>Talk name: {conf.title}</li>
+      </ul>
+    {/for}
+    {#else}
+      💥 No information to display 💥
+    {/if}
+
+snippet 1.38-app-devoxx-resource-template-inject:
+  prefix: "1.38-app-devoxx-resource-template-inject"
+  scope: "java"
+  name: "1.38-app-devoxx-resource-template-inject"
+  body: |
+    @Inject
+    @Location("DevoxxCFPResource/devoxxconference.html")
+    Template devoxxconference;
+
+snippet 1.39-app-devoxx-resource-template-index:
+  prefix: "1.39-app-devoxx-resource-template-index"
+  scope: "java"
+  name: "1.39-app-devoxx-resource-template-index"
+  body: |
+    @GET
+    @Path("/index")
+    @Produces(MediaType.TEXT_HTML)
+    @Blocking
+    public TemplateInstance getIndex() throws Exception {
+
+      return devoxxconference.data("conferences", Collections.EMPTY_LIST);
+    }
+
+snippet 1.40-app-devoxx-resource-template:
+  prefix: "1.40-app-devoxx-resource-template"
+  scope: "java"
+  name: "1.40-app-devoxx-resource-template"
+  body: |
+    @GET
+    @Path("/template")
+    @Produces(MediaType.TEXT_HTML)
+    @Blocking
+    public TemplateInstance getConferencesTemplate() throws Exception {
+
+      return devoxxconference.data("conferences", devoxxCFP.getConferences().subList(0, 10));
+    }
+
+snippet 1.42-app-chatbot-ws-annot:
+  prefix: "1.42-app-chatbot-ws-annot"
+  scope: "java"
+  name: "1.42-app-chatbot-ws-annot"
+  body: |
+    @WebSocket(path = "/chatbot-ws")
+
+snippet 1.43-app-chatbot-ws-inject-svc:
+  prefix: "1.43-app-chatbot-ws-inject-svc"
+  scope: "java"
+  name: "1.43-app-chatbot-ws-inject-svc"
+  body: |
+    @Inject
+    ChatbotService chatbotService;
+
+snippet 1.44-app-chatbot-ws-on-message:
+  prefix: "1.44-app-chatbot-ws-on-message"
+  scope: "java"
+  name: "1.44-app-chatbot-ws-on-message"
+  body: |
+    @OnTextMessage
+    public Multi<String> onMessage(String message) {
+      return chatbotService.askAQuestion(message);
+    }
