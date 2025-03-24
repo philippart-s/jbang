@@ -1,5 +1,4 @@
-//04-add-shebang-app
-///usr/lib/jvm/msopenjdk-current/bin/java "$0" "$@" ; exit $? 
+///usr/bin/env java "$0" "$@" ; exit $? 
  
 /**
  * Hello world!
