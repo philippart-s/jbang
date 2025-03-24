@@ -7,11 +7,13 @@ set +a
 
 clear
 
-bat -P -r 12: $(basename "$0")
+bat -P -r 12:13 $(basename "$0")
 
 # Install httpd@jbangdev
 jbang app install httpd@jbangdev
 
 read -n 1 -p "Press any key to continue\n"
+
+bat -P -r 19: $(basename "$0")
 
 httpd
