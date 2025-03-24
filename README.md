@@ -16,6 +16,7 @@ The simplest way to use this code is to re-open the project with the Dev Contain
     - add a prompt (`06-prompt`)
     - test Jarvis [07-run-jarvis-mvn.sh](./maven-demo/07-run-jarvis-mvn.sh)
   - install JBang [08-jbang-installation.sh](./08-jbang-installation.sh)
+  - add shebang in APP (`09-add-shebang-app`)
   - run App with JBang [10-jbang-app-shebang.sh](./jbang-demo/10-jbang-app-shebang.sh)
   - create [Jarvis.java](./jbang-demo/Jarvis.java)
     - add Jarvis dependencies (`11-add-jarvis-deps`)

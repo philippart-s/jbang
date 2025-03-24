@@ -1,0 +1,408 @@
+{
+  "1.05-app-langchain4j-cfg": {
+    "body": [
+      "# Langchain4j Mistral configuration",
+      "quarkus.langchain4j.mistralai.base-url=\\${OVH_AI_ENDPOINTS_MODEL_URL}",
+      "quarkus.langchain4j.mistralai.api-key=\\${OVH_AI_ENDPOINTS_ACCESS_TOKEN}",
+      "quarkus.langchain4j.mistralai.chat-model.max-tokens=32000",
+      "quarkus.langchain4j.mistralai.chat-model.model-name=\\${OVH_AI_ENDPOINTS_MODEL_NAME}",
+      "quarkus.langchain4j.mistralai.log-requests=false",
+      "quarkus.langchain4j.mistralai.log-responses=false",
+      "quarkus.langchain4j.mistralai.chat-model.temperature=0.0",
+      "quarkus.langchain4j.mistralai.embedding-model.enabled=false",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.05-app-langchain4j-cfg",
+    "scope": ""
+  },
+  "1.06-app-ai-service": {
+    "body": [
+      "@RegisterAiService",
+      "@ApplicationScoped",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.06-app-ai-service",
+    "scope": "java"
+  },
+  "1.07-app-ai-prompts": {
+    "body": [
+      "@SystemMessage(\"\"\"",
+      "  Tu es un spécialiste de la conférence Devoxx France 2025.",
+      "  Cette conférence propose des talks (le terme conférence est bon aussi) avec des oratrices et orateurs (le terme speaker est aussi valide).",
+      "  Lorsque tu as des questions sur les titres, essai de trouver le titre de la conférence qui s'en rapproche le plus.",
+      "  Lorsque tu as des questions sur les personnes donnant la conférence essaie de trouver le nom et prénom qui se suivent dans la catégorie speaker des données que tu possèdes.",
+      "  \"\"\")",
+      "@UserMessage(\"Voci la question qui t'es posée : {question}\")",
+      "Multi\u003cString\u003e askAQuestion(String question);",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.07-app-ai-prompts",
+    "scope": "java"
+  },
+  "1.08-app-chatbot-rest-path": {
+    "body": [
+      "@Path(\"chatbot-api\")",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.08-app-chatbot-rest-path",
+    "scope": "java"
+  },
+  "1.09-app-chatbot-rest-client": {
+    "body": [
+      "@Inject",
+      "ChatbotService chatbotService;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.09-app-chatbot-rest-client",
+    "scope": "java"
+  },
+  "1.10-app-chatbot-rest-ask-annot": {
+    "body": [
+      "@POST",
+      "@Consumes(MediaType.TEXT_PLAIN)",
+      "@Produces(MediaType.TEXT_PLAIN)",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.10-app-chatbot-rest-ask-annot",
+    "scope": "java"
+  },
+  "1.11-app-chatbot-rest-call-model": {
+    "body": [
+      "return chatbotService.askAQuestion(question);",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.11-app-chatbot-rest-call-model",
+    "scope": "java"
+  },
+  "1.14-app-rest-client-cfg": {
+    "body": [
+      "quarkus.rest-client.\"fr.wilda.fullstack.services.DevoxxCFPService\".url=\\${DEVOXX_CFP_API_URL}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.14-app-rest-client-cfg",
+    "scope": ""
+  },
+  "1.15-app-add-devoxx-svc-annot": {
+    "body": [
+      "@RegisterRestClient",
+      "@ClientHeaderParam(name = \"Content-Type\", value = \"application/json\")",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.15-app-add-devoxx-svc-annot",
+    "scope": "java"
+  },
+  "1.16-app-add-devoxx-getConf": {
+    "body": [
+      "@GET",
+      "@Path(\"talks\")",
+      "public List\u003cConference\u003e getConferences();",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.16-app-add-devoxx-getConf",
+    "scope": "java"
+  },
+  "1.17-app-devoxx-resource-path": {
+    "body": [
+      "@Path(\"/devoxx-talks\")",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.17-app-devoxx-resource-path",
+    "scope": "java"
+  },
+  "1.18-app-devoxx-resource-rest-client": {
+    "body": [
+      "@RestClient",
+      "DevoxxCFPService devoxxCFP;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.18-app-devoxx-resource-rest-client",
+    "scope": "java"
+  },
+  "1.19-app-devoxx-resource-get-conferences-annot": {
+    "body": [
+      "@GET",
+      "@Produces(MediaType.APPLICATION_JSON)",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.19-app-devoxx-resource-get-conferences-annot",
+    "scope": "java"
+  },
+  "1.20-app-devoxx-resource-get-conf-body": {
+    "body": [
+      "List\u003cConference\u003e devoxxConferences = devoxxCFP.getConferences();",
+      "",
+      "_LOG.info(\"Nombre de conférences à Devoxx : {}\", devoxxConferences.size());",
+      "",
+      "return devoxxConferences;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.20-app-devoxx-resource-get-conf-body",
+    "scope": "java"
+  },
+  "1.21-app-ovhai-dependency": {
+    "body": [
+      "\u003cdependency\u003e",
+      "  \u003cgroupId\u003edev.langchain4j\u003c/groupId\u003e",
+      "  \u003cartifactId\u003elangchain4j-ovh-ai\u003c/artifactId\u003e",
+      "  \u003cversion\u003e1.0.0-beta1\u003c/version\u003e",
+      "\u003c/dependency\u003e",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.21-app-ovhai-dependency",
+    "scope": "xml"
+  },
+  "1.23-app-rag-cfg": {
+    "body": [
+      "# RAG parameters",
+      "quarkus.datasource.ai-enbeddings.db-kind=postgresql ",
+      "quarkus.datasource.ai-enbeddings.devservices.image-name=pgvector/pgvector:pg16",
+      "",
+      "quarkus.langchain4j.pgvector.drop-table-first=true",
+      "quarkus.langchain4j.pgvector.register-vector-pg-extension=true",
+      "quarkus.langchain4j.pgvector.dimension=${OVH_EMBEDDING_DIMENSION}",
+      "quarkus.langchain4j.pgvector.datasource=ai-enbeddings",
+      "",
+      "quarkus.langchain4j.easy-rag.min-score=0.1",
+      "quarkus.langchain4j.easy-rag.max-results=20",
+      "quarkus.langchain4j.easy-rag.path=foo",
+      "quarkus.langchain4j.easy-rag.ingestion-strategy=OFF",
+      "",
+      "quarkus.langchain4j.embedding-model.provider=dev.langchain4j.model.ovhai.OvhAiEmbeddingModel",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.23-app-rag-cfg",
+    "scope": ""
+  },
+  "1.24-app-embedding-model-annot": {
+    "body": [
+      "@ApplicationScoped",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.24-app-embedding-model-annot",
+    "scope": "java"
+  },
+  "1.25-app-embedding-model-producer": {
+    "body": [
+      "@Produces",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.25-app-embedding-model-producer",
+    "scope": "java"
+  },
+  "1.26-app-enbedding-model-ovh-model": {
+    "body": [
+      "return OvhAiEmbeddingModel.builder()",
+      "    .baseUrl(System.getenv(\"OVH_AI_EMBEDDING_MODEL_URL\"))",
+      "    .apiKey(System.getenv(\"OVH_AI_ENDPOINTS_ACCESS_TOKEN\"))",
+      "    .logRequests(false)",
+      "    .logResponses(false)",
+      "    .build();",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.26-app-enbedding-model-ovh-model",
+    "scope": "java"
+  },
+  "1.27-app-data-embedding-svc-inject": {
+    "body": [
+      "@Inject",
+      "EmbeddingModel embeddingModel;",
+      "",
+      "@Inject",
+      "EmbeddingStore\u003cTextSegment\u003e embeddingStore;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.27-app-data-embedding-svc-inject",
+    "scope": "java"
+  },
+  "1.28-app-data-devoxx-svc-inject": {
+    "body": [
+      "@RestClient",
+      "DevoxxCFPService devoxxCFP;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.28-app-data-devoxx-svc-inject",
+    "scope": "java"
+  },
+  "1.29-app-data-devoxx-svc-ingest": {
+    "body": [
+      "List\u003cConference\u003e talks = devoxxCFP.getConferences();",
+      "",
+      "for (Conference conference : talks) {",
+      "  _LOG.info(\"Talk ingéré : {}\", conference.getTitle());",
+      "  embeddingStore.add(embeddingModel",
+      "      .embed(conference.getSpeakers().toString())",
+      "      .content(),",
+      "      TextSegment.from(conference.toString()));",
+      "}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.29-app-data-devoxx-svc-ingest",
+    "scope": "java"
+  },
+  "1.30-app-data-devoxx-svc-deleteall": {
+    "body": [
+      "embeddingStore.removeAll();",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.30-app-data-devoxx-svc-deleteall",
+    "scope": "java"
+  },
+  "1.31-app-devoxx-resource-rest-embedding": {
+    "body": [
+      "@Inject",
+      "DevoxxDataEmbeddingService devoxxDataEmbedding;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.31-app-devoxx-resource-rest-embedding",
+    "scope": "java"
+  },
+  "1.32-app-devoxx-resource-rest-synchro": {
+    "body": [
+      "@GET",
+      "@Path(\"/synchro\")",
+      "public void synchro() {",
+      "  devoxxDataEmbedding.ingest();",
+      "}",
+      "",
+      "@GET",
+      "@Path(\"/delete\")",
+      "public void deleteAll() {",
+      "  devoxxDataEmbedding.deleteAll();",
+      "",
+      "}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.32-app-devoxx-resource-rest-synchro",
+    "scope": "java"
+  },
+  "1.35-app-db-prod-config": {
+    "body": [
+      "%prod.quarkus.datasource.ai-enbeddings.username=${OVH_DB_USERNAME}",
+      "%prod.quarkus.datasource.ai-enbeddings.password=${OVH_DB_PASSWORD}",
+      "%prod.quarkus.datasource.ai-enbeddings.jdbc.url=jdbc:postgresql://${OVH_DB_HOST}:${OVH_DB_PORT}/jarvis-ai-embeddings",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.35-app-db-prod-config",
+    "scope": ""
+  },
+  "1.37-app-devoxx-confs-html": {
+    "body": [
+      "\u003ca href=\"/devoxx-talks/template\"\u003e🎙️ Get talks 🎙️\u003c/a\u003e",
+      "\u003c/br\u003e",
+      "\u003c/br\u003e",
+      "",
+      "{#if conferences != null \u0026\u0026 conferences.size \u003e 0 }",
+      "{#for conf in conferences}",
+      "  \u003cul\u003e",
+      "    \u003cli\u003eTalk name: {conf.title}\u003c/li\u003e",
+      "  \u003c/ul\u003e",
+      "{/for}",
+      "{#else}",
+      "  💥 No information to display 💥",
+      "{/if}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.37-app-devoxx-confs-html",
+    "scope": "html"
+  },
+  "1.38-app-devoxx-resource-template-inject": {
+    "body": [
+      "@Inject",
+      "@Location(\"DevoxxCFPResource/devoxxconference.html\")",
+      "Template devoxxconference;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.38-app-devoxx-resource-template-inject",
+    "scope": "java"
+  },
+  "1.39-app-devoxx-resource-template-index": {
+    "body": [
+      "@GET",
+      "@Path(\"/index\")",
+      "@Produces(MediaType.TEXT_HTML)",
+      "@Blocking",
+      "public TemplateInstance getIndex() throws Exception {",
+      "",
+      "  return devoxxconference.data(\"conferences\", Collections.EMPTY_LIST);",
+      "}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.39-app-devoxx-resource-template-index",
+    "scope": "java"
+  },
+  "1.40-app-devoxx-resource-template": {
+    "body": [
+      "@GET",
+      "@Path(\"/template\")",
+      "@Produces(MediaType.TEXT_HTML)",
+      "@Blocking",
+      "public TemplateInstance getConferencesTemplate() throws Exception {",
+      "",
+      "  return devoxxconference.data(\"conferences\", devoxxCFP.getConferences().subList(0, 10));",
+      "}",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.40-app-devoxx-resource-template",
+    "scope": "java"
+  },
+  "1.42-app-chatbot-ws-annot": {
+    "body": [
+      "@WebSocket(path = \"/chatbot-ws\")",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.42-app-chatbot-ws-annot",
+    "scope": "java"
+  },
+  "1.43-app-chatbot-ws-inject-svc": {
+    "body": [
+      "@Inject",
+      "ChatbotService chatbotService;",
+      ""
+    ],
+    "description": "",
+    "prefix": "1.43-app-chatbot-ws-inject-svc",
+    "scope": "java"
+  },
+  "1.44-app-chatbot-ws-on-message": {
+    "body": [
+      "@OnTextMessage",
+      "public Multi\u003cString\u003e onMessage(String message) {",
+      "  return chatbotService.askAQuestion(message);",
+      "}"
+    ],
+    "description": "",
+    "prefix": "1.44-app-chatbot-ws-on-message",
+    "scope": "java"
+  }
+}
