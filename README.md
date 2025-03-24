@@ -23,12 +23,8 @@ The simplest way to use this code is to re-open the project with the Dev Contain
     - add a prompt (`13-prompt`)
     - test Jarvis [14-jbang-jarvis.sh](./jbang-demo/14-jbang-jarvis.sh)
   - install script in path [15-install-jarvis.sh](./jbang-demo/15-install-jarvis.sh)
-  - run from anywhere Jarvis [17-run-jarvis.sh](./17-run-jarvis.sh)
-  - run from URL Jarvis [18-run-jarvis-from-gh.sh](./18-run-jarvis-from-gh.sh)
-  - creating and using alias [19-run-jarvis-from-alias.sh](./19-run-jarvis-from-alias.sh)
-  - use a remote catalogue [20-run-from-remote-catalogue.sh](./20-run-from-remote-catalogue.sh)
-  - install `httpd` alias [21-install-httpd.sh](./21-install-httpd.sh)
-
-# ? JBang templates ?
-# ? Alias ?
-# IDE support 
+  - run from anywhere Jarvis [16-run-jarvis.sh](./16-run-jarvis.sh)
+  - run from URL Jarvis [17-run-jarvis-from-gh.sh](./17-run-jarvis-from-gh.sh)
+  - creating and using alias [18-run-jarvis-from-alias.sh](./18-run-jarvis-from-alias.sh)
+  - use a remote catalogue [19-run-from-remote-catalogue.sh](./19-run-from-remote-catalogue.sh)
+  - install `httpd` alias [20-install-httpd.sh](./20-install-httpd.sh)
