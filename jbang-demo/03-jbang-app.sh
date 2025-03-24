@@ -1,6 +1,8 @@
 #!/bin/bash
 
-bat -P -r 5: $(basename "$0")
+clear
+
+bat -P -r 7: $(basename "$0")
 
 # App run with JBang
 jbang App.java

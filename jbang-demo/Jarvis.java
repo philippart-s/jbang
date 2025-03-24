@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
-// 06-add-jarvis-deps
+// 07-add-jarvis-deps
 //DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
-// 07-add-external-resources
+// 08-add-external-resources
 //FILES resources/logback.xml
 
 import org.slf4j.Logger;
@@ -18,14 +18,14 @@ public class Jarvis {
 
         private static final Logger _LOG = LoggerFactory.getLogger(Jarvis.class);
 
-        // 08-ai-services-mode
+        // 09-ai-services-mode
         interface Assistant {
                 @SystemMessage("Tu es JARVIS, un assistant virtuel expert dans le développement Java.")
                 TokenStream chat(String message);
         }
 
         public static void main(String[] args) {
-                // 09-mistral-model
+                // 10-mistral-model
                 MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
                                 .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
                                 .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
@@ -34,16 +34,16 @@ public class Jarvis {
                                 .maxTokens(512)
                                 .build();
 
-                // 10-add-memory
+                // 11-add-memory
                 ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
 
-                // 11-create-assistant
+                // 12-create-assistant
                 Assistant assistant = AiServices.builder(Assistant.class)
                                 .streamingChatLanguageModel(streamingChatModel)
                                 .chatMemory(chatMemory)
                                 .build();
 
-                // 12-prompt
+                // 13-prompt
                 _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
                 TokenStream tokenStream = assistant
                                 .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
