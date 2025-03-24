@@ -5,7 +5,9 @@ set -a
 source ../.env
 set +a
 
-bat -P -r 10: $(basename "$0")
+clear
+
+bat -P -r 12: $(basename "$0")
 
 # Jarvis CLI mode
 ./Jarvis.java
