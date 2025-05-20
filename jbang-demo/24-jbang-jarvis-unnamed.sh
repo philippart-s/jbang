@@ -9,5 +9,5 @@ clear
 
 bat -P -r 12: $(basename "$0")
 
-# Jarvis CLI mode
-./Jarvis.java
+# Jarvis unnamed class
+jbang JarvisPreview.java
