@@ -30,5 +30,7 @@ The simplest way to use this code is to re-open the project with the Dev Contain
   - install `httpd` alias [20-install-httpd.sh](./20-install-httpd.sh)
   - create local catalog [21-create-catalog.sh](./jbang-demo/21-create-catalog.sh)
   - add remote catalog [22-add-remote-catalog.sh](./22-add-remote-catalog.sh)
-  - create new script with unnamed class feature [24-jbang-jarvis-unnamed.sh](./jbang-demo/24-jbang-jarvis-unnamed.sh)
   - install `jarvis-catalog` app [23-install-jarvis-catalog-app.sh](./23-install-jarvis-catalog-app.sh)
+  - create script [JarvisPreview.java](./jbang-demo/JarvisPreview.java)
+  - activate preview for Java 21 (`24-enable-java-preview` && `25-use-sysout`) 
+  - run [26-jbang-jarvis-unnamed.sh](./jbang-demo/26-jbang-jarvis-unnamed.sh)

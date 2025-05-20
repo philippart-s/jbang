@@ -88,5 +88,15 @@
     "description": "",
     "prefix": "13-prompt",
     "scope": "java"
+  },
+  "23-enable-java-preview": {
+    "body": [
+      "//JAVA 21+",
+      "//PREVIEW",
+      ""
+    ],
+    "description": "",
+    "prefix": "23-enable-java-preview",
+    "scope": "java"
   }
 }

@@ -72,3 +72,17 @@ snippet 13-prompt:
             .onPartialResponse(_LOG::info)
             .onError(Throwable::printStackTrace).start();
 
+snippet 24-enable-java-preview:
+  prefix: "24-enable-java-preview"
+  name: "24-enable-java-preview"
+  scope: "java"
+  body: |
+    //JAVA 21+
+    //PREVIEW
+
+snippet 25-use-sysout:
+  prefix: "25-use-sysout"
+  name: "25-use-sysout"
+  scope: "java"
+  body: |
+    .onPartialResponse(System.out::print)
