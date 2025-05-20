@@ -33,6 +33,8 @@ maven-demo-create/target/
 .env
 snippets
 .DS_STORE
+.idea/
 
 # ☕️ Java configuration 
 target/
+/jbang-save.iml

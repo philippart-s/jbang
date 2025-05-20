@@ -1,9 +1,8 @@
-///usr/bin/env jbang "$0" "$@" ; exit $? 
+///usr/bin/env jbang "$0" "$@" ; exit $?
+// 24-enable-java-preview
 //JAVA 21+
 //PREVIEW
-// 07-add-jarvis-deps
 //DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
-// 08-add-external-resources
 //FILES resources/logback.xml
 
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ interface Assistant {
 }
 
 void main() {
-    // 10-mistral-model
     MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
             .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
             .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
@@ -32,22 +30,20 @@ void main() {
             .maxTokens(512)
             .build();
 
-    // 11-add-memory
     ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
 
-    // 12-create-assistant
     Assistant assistant = AiServices.builder(Assistant.class)
             .streamingChatLanguageModel(streamingChatModel)
             .chatMemory(chatMemory)
             .build();
 
-    // 13-prompt
     System.out.println(
             "💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
     TokenStream tokenStream = assistant
             .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
     System.out.println("🤖: ");
     tokenStream
+            // 25-use-sysout
             .onPartialResponse(System.out::print)
             .onError(Throwable::printStackTrace).start();
 }
