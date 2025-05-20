@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Load enviroment variables
+# Load environment variables
 set -a
 source ../.env
 set +a
