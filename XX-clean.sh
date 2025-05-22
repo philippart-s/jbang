@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Load enviroment variables
+# Load environment variables
 set -a
 source ../.env
 set +a
@@ -9,11 +9,15 @@ clear
 
 bat -P -r 12: $(basename "$0")
 
-jbang app uninstall Jarvis
+jbang app uninstall Jarvis 
+jbang app uninstall jarvis-catalog
 jbang app uninstall httpd
 jbang alias remove jarvis-gh
+jbang catalog remove wildagsx
 
 read -n 1 -p "Press any key to continue\n"
 
 jbang alias list
 jbang app list
+jbang catalog list
+jbang template list

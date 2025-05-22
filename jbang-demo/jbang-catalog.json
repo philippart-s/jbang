@@ -1,0 +1,11 @@
+{
+  "catalogs": {},
+  "aliases": {
+    "jarvis-catalog": {
+      "script-ref": "Jarvis.java",
+      "description": "Jarvis application alias",
+      "java-agents": []
+    }
+  },
+  "templates": {}
+}
