@@ -89,14 +89,23 @@
     "prefix": "13-prompt",
     "scope": "java"
   },
-  "23-enable-java-preview": {
+  "24-enable-java-preview": {
     "body": [
       "//JAVA 21+",
       "//PREVIEW",
       ""
     ],
     "description": "",
-    "prefix": "23-enable-java-preview",
+    "prefix": "24-enable-java-preview",
+    "scope": "java"
+  },
+  "25-use-sysout": {
+    "body": [
+      ".onPartialResponse(System.out::print)",
+      ""
+    ],
+    "description": "",
+    "prefix": "25-use-sysout",
     "scope": "java"
   }
 }
