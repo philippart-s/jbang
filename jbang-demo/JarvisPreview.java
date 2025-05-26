@@ -13,6 +13,7 @@ import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.TokenStream;
 
+// JEP 445 / 463
 public class JarvisPreview {
 
         private static final Logger _LOG = LoggerFactory.getLogger(JarvisPreview.class);
