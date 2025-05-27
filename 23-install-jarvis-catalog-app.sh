@@ -12,7 +12,7 @@ bat -P -r 12:13 $(basename "$0")
 # Install remote alias from catalog
 jbang app install jarvis-catalog@wildagsx
 
-read -n 1 -p "Press any key to continue\n"
+read -n 1 -p "Press any key to continue"
 
 clear
 

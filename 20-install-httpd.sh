@@ -12,8 +12,11 @@ bat -P -r 12:13 $(basename "$0")
 # Install httpd@jbangdev
 jbang app install httpd@jbangdev
 
-read -n 1 -p "Press any key to continue\n"
+read -n 1 -p "Press any key to continue"
 
-bat -P -r 19: $(basename "$0")
+clear
 
+bat -P -r 21: $(basename "$0")
+
+# Run httpd app
 httpd
