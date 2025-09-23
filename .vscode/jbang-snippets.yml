@@ -10,7 +10,7 @@ snippet 07-add-jarvis-deps:
   name: "07-add-jarvis-deps"
   scope: "java"
   body: |
-    //DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
+    //DEPS dev.langchain4j:langchain4j:1.5.0 dev.langchain4j:langchain4j-mistral-ai:1.5.0 ch.qos.logback:logback-classic:1.5.6
 
 snippet 08-add-external-resources:
   prefix: "08-add-external-resources"
@@ -55,7 +55,7 @@ snippet 12-create-assistant:
   scope: "java"
   body: |
     Assistant assistant = AiServices.builder(Assistant.class)
-                    .streamingChatLanguageModel(streamingChatModel)
+                    .streamingChatModel(streamingChatModel)
                     .chatMemory(chatMemory)
     .build();
 
@@ -67,10 +67,13 @@ snippet 13-prompt:
     _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
     TokenStream tokenStream = assistant
                     .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
+    CompletableFuture<ChatResponse> futureChatResponse = new CompletableFuture<>();
     _LOG.info("🤖: ");
     tokenStream
+            .onCompleteResponse((ChatResponse response) -> futureChatResponse.complete(response))
             .onPartialResponse(_LOG::info)
             .onError(Throwable::printStackTrace).start();
+    futureChatResponse.join();
 
 snippet 24-enable-java-preview:
   prefix: "24-enable-java-preview"
