@@ -1,9 +1,10 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
 // 07-add-jarvis-deps
-//DEPS dev.langchain4j:langchain4j:1.0.0-beta1 dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta1 ch.qos.logback:logback-classic:1.5.6
+//DEPS dev.langchain4j:langchain4j:1.5.0 dev.langchain4j:langchain4j-mistral-ai:1.5.0 ch.qos.logback:logback-classic:1.5.6
 // 08-add-external-resources
 //FILES resources/logback.xml
 
+import dev.langchain4j.model.chat.response.ChatResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,8 @@ import dev.langchain4j.model.mistralai.MistralAiStreamingChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.TokenStream;
+
+import java.util.concurrent.CompletableFuture;
 
 public class Jarvis {
 
@@ -39,7 +42,7 @@ public class Jarvis {
 
                 // 12-create-assistant
                 Assistant assistant = AiServices.builder(Assistant.class)
-                                .streamingChatLanguageModel(streamingChatModel)
+                                .streamingChatModel(streamingChatModel)
                                 .chatMemory(chatMemory)
                                 .build();
 
@@ -47,9 +50,12 @@ public class Jarvis {
                 _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
                 TokenStream tokenStream = assistant
                                 .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
+                CompletableFuture<ChatResponse> futureChatResponse = new CompletableFuture<>();
                 _LOG.info("🤖: ");
                 tokenStream
+                                .onCompleteResponse((ChatResponse response) -> futureChatResponse.complete(response))
                                 .onPartialResponse(_LOG::info)
                                 .onError(Throwable::printStackTrace).start();
+                futureChatResponse.join();
         }
 }
