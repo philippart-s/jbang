@@ -82,10 +82,3 @@ snippet 24-enable-java-preview:
   body: |
     //JAVA 21+
     //PREVIEW
-
-snippet 25-use-sysout:
-  prefix: "25-use-sysout"
-  name: "25-use-sysout"
-  scope: "java"
-  body: |
-    .onPartialResponse(System.out::print)

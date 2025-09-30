@@ -1,5 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
 // 24-enable-java-preview
+
 //DEPS dev.langchain4j:langchain4j:1.5.0 dev.langchain4j:langchain4j-mistral-ai:1.5.0 ch.qos.logback:logback-classic:1.5.6
 //FILES resources/logback.xml
 
@@ -48,9 +49,9 @@ public class JarvisPreview {
                 CompletableFuture<ChatResponse> futureChatResponse = new CompletableFuture<>();
                 _LOG.info("🤖: ");
                 tokenStream
-                                // 25-use-sysout
                                 .onCompleteResponse((ChatResponse response) -> futureChatResponse.complete(response))
                                 .onPartialResponse(_LOG::info)
                                 .onError(Throwable::printStackTrace).start();
+                futureChatResponse.join();
         }
 }
