@@ -94,7 +94,7 @@
   },
   "24-enable-java-preview": {
     "body": [
-      "//JAVA 21+",
+      "//JAVA 24",
       "//PREVIEW"
     ],
     "description": "",
