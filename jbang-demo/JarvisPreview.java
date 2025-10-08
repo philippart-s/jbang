@@ -1,7 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-// 24-enable-java-preview
-//JAVA 21+
-//PREVIEW
+//JAVA 24
+//PREVIEW 
 //DEPS dev.langchain4j:langchain4j:1.5.0 dev.langchain4j:langchain4j-mistral-ai:1.5.0 ch.qos.logback:logback-classic:1.5.6
 //FILES resources/logback.xml
 
@@ -18,13 +17,15 @@ import dev.langchain4j.service.TokenStream;
 
 import java.util.concurrent.CompletableFuture;
 
-// 09-ai-services-mode
+
 interface Assistant {
         @SystemMessage("Tu es JARVIS, un assistant virtuel expert dans le développement Java.")
         TokenStream chat(String message);
 }
-
+// JEP 445 / 463
 void main() {
+    final Logger _LOG = LoggerFactory.getLogger(this.getClass());
+
     MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
             .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
             .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
@@ -47,9 +48,8 @@ void main() {
     CompletableFuture<ChatResponse> futureChatResponse = new CompletableFuture<>();
     System.out.println("🤖: ");
     tokenStream
-            // 25-use-sysout
             .onCompleteResponse((ChatResponse response) -> futureChatResponse.complete(response))
-            .onPartialResponse(System.out::print)
+            .onPartialResponse(_LOG::info)
             .onError(Throwable::printStackTrace).start();
     futureChatResponse.join();
 }
