@@ -3,7 +3,6 @@
 
 // 08-add-external-resources
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ public class Jarvis {
         
         public static void main(String[] args) {
                 // 10-mistral-model
-                MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
+          StreamingChatModel streamingChatModel = OpenAiStreamingChatModel.builder()
                                 .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
                                 .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
                                 .baseUrl(

@@ -1,16 +1,17 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
 // 24-enable-java-preview
 
-//DEPS dev.langchain4j:langchain4j:1.5.0 dev.langchain4j:langchain4j-mistral-ai:1.5.0 ch.qos.logback:logback-classic:1.5.6
+//DEPS dev.langchain4j:langchain4j:1.10.0 dev.langchain4j:langchain4j-open-ai:1.10.0 ch.qos.logback:logback-classic:1.5.6
 //FILES resources/logback.xml
 
+import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.chat.response.ChatResponse;
+import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.mistralai.MistralAiStreamingChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.TokenStream;
@@ -28,7 +29,7 @@ public class JarvisPreview {
         }
 
         public static void main(String[] args) {
-                MistralAiStreamingChatModel streamingChatModel = MistralAiStreamingChatModel.builder()
+                StreamingChatModel streamingChatModel = OpenAiStreamingChatModel.builder()
                                 .apiKey(System.getenv("OVH_AI_ENDPOINTS_ACCESS_TOKEN"))
                                 .modelName(System.getenv("OVH_AI_ENDPOINTS_MODEL_NAME"))
                                 .baseUrl(
