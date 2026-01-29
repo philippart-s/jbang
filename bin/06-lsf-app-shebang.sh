@@ -2,7 +2,8 @@
 
 clear
 
-bat -P -r 7: $(basename "$0")
+bat -P -r 8: $(basename "$0")
 
+cd ../jbang-demo
 # App with Java Launch Single File (JEP330)
 ./AppLSF.java

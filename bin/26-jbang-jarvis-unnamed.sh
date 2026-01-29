@@ -7,7 +7,8 @@ set +a
 
 clear
 
-bat -P -r 12: $(basename "$0")
+bat -P -r 13: $(basename "$0")
 
+cd ../jbang-demo
 # Jarvis unnamed class
 jbang JarvisPreview.java
