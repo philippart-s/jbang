@@ -44,9 +44,9 @@ public class JarvisPreview {
                                 .chatMemory(chatMemory)
                                 .build();
 
-                _LOG.info("💬: Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.\n");
+                _LOG.info("💬: Hello JARVIS. Explain in a few lines what JBang is to Java developers. Thank you.\n");
                 TokenStream tokenStream = assistant
-                                .chat("Bonjour JARVIS. Explique en quelques lignes ce qu'est JBang à des développeuses et développeurs Java. Merci.");
+                                .chat("Hello JARVIS. Explain in a few lines what JBang is to Java developers. Thank you.");
                 CompletableFuture<ChatResponse> futureChatResponse = new CompletableFuture<>();
                 _LOG.info("🤖: ");
                 tokenStream
