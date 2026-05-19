@@ -1,0 +1,22 @@
+<templateSet group="Talk - JBang">
+  <template name="04-add-shebang-app" value="///usr/bin/env jbang &quot;$0&quot; &quot;$@&quot; ; exit $?&#10;" description="04-add-shebang-app" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+  <template name="07-add-jarvis-deps" value="//DEPS dev.langchain4j:langchain4j:1.14.1&#10;//DEPS dev.langchain4j:langchain4j-open-ai:1.14.1&#10;//DEPS ch.qos.logback:logback-classic:1.5.6" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+  <template name="08-add-external-resources" value="//FILES resources/logback.xml" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+  <template name="24-enable-java-preview" value="//JAVA 24&#10;//PREVIEW" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+</templateSet>
