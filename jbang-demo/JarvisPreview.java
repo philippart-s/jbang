@@ -1,7 +1,9 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $? 
 // 24-enable-java-preview
 
-//DEPS dev.langchain4j:langchain4j:1.10.0 dev.langchain4j:langchain4j-open-ai:1.10.0 ch.qos.logback:logback-classic:1.5.6
+//DEPS dev.langchain4j:langchain4j:1.14.1
+//DEPS dev.langchain4j:langchain4j-open-ai:1.14.1
+//DEPS ch.qos.logback:logback-classic:1.5.6
 //FILES resources/logback.xml
 
 import dev.langchain4j.model.chat.StreamingChatModel;
