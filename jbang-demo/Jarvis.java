@@ -1,6 +1,6 @@
 /// usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS dev.langchain4j:langchain4j:1.10.0
-//DEPS dev.langchain4j:langchain4j-open-ai:1.10.0
+//DEPS dev.langchain4j:langchain4j:1.14.1
+//DEPS dev.langchain4j:langchain4j-open-ai:1.14.1
 //DEPS ch.qos.logback:logback-classic:1.5.6
 //FILES resources/logback.xml
 
