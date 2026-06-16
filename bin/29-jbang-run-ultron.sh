@@ -7,11 +7,11 @@ set +a
 
 clear
 
-bat -P -r 16:17 $(basename "$0")
+bat -P -r 16: $(basename "$0")
 
 read -n 1 -p "Press any key to continue"
 
 cd ../template
 
-# Ultron creation thanks to Jarvis template
-jbang init --template=jarvis-template Ultron.java
+# Run Ultron
+jbang Ultron.java

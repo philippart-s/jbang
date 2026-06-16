@@ -13,7 +13,7 @@ read -n 1 -p "Press any key to continue"
 
 cd ..
 # Jarvis template creation
-jbang template add --name jarvis-template ./jbang-demo/Jarvis.java ./jbang-demo/resources/logback.xml
+jbang template add --name jarvis-template ./jbang-demo/JarvisPreview.java ./jbang-demo/resources/logback.xml
 
 read -n 1 -p "Press any key to continue"
 
