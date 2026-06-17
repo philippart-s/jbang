@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 clear
 
@@ -8,7 +8,7 @@ echo "     1️⃣. curl -Ls https://sh.jbang.dev | bash -s - app setup"
 echo "     2️⃣. brew install jbangdev/tap/jbang"
 echo "     3️⃣. sdk install jbang"
 echo ""
-read -n 1 -p "Press any key to continue"
+read -k 1 "?Press any key to continue"
 
 clear
 
