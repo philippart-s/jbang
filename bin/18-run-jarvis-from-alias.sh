@@ -15,7 +15,9 @@ jbang alias add --name jarvis-gh https://github.com/philippart-s/jbang/blob/main
 read -n 1 -p "Press any key to continue"
 clear
 
-bat -P -r 22:23 $(basename "$0")
+bat ~/.jbang/jbang-catalog.json
+
+bat -P -r 24:25 $(basename "$0")
 
 read -n 1 -p "Press any key to continue"
 

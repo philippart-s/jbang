@@ -16,7 +16,9 @@ read -n 1 -p "Press any key to continue"
 
 clear
 
-bat -P -r 21:22 $(basename "$0")
+bat ~/.jbang/jbang-catalog.json
+
+bat -P -r 23:24 $(basename "$0")
 
 # List available catalogs
 jbang --fresh catalog list
@@ -25,7 +27,7 @@ read -n 1 -p "Press any key to continue"
 
 clear
 
-bat -P -r 30:31 $(basename "$0")
+bat -P -r 32:33 $(basename "$0")
 
 # List wildagsx's remote catalog aliases
 jbang --fresh alias list wildagsx
